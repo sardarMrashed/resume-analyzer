@@ -12,7 +12,7 @@ function App() {
     formData.append('resume', file)
     setLoading(true)
     try {
-      const response = await axios.post('http://localhost:3001/analyze', formData)
+      const response = await axios.post('https://resume-analyzer-1im8.onrender.com/analyze', formData)
       setFeedback(response.data.feedback)
     } catch (error) {
       alert(error.response?.data?.error || error.message)
