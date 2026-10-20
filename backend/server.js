@@ -57,7 +57,8 @@ app.post('/analyze', acceptPdf, async (req, res) => {
 
   let resumeText
   try {
-    const pdfData = await pdfParse(req.file.buffer)
+    // PDF.js expects typed-array copy semantics; Node Buffer.slice() returns a view.
+    const pdfData = await pdfParse(Uint8Array.from(req.file.buffer))
     resumeText = pdfData.text?.trim()
   } catch (_err) {
     return res.status(422).json({ error: 'Could not read this PDF. Try exporting your resume as a text-based PDF.' })
